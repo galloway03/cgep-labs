@@ -11,12 +11,17 @@ This module is setting the foundation for future ones. We are starting the proce
 <h1>Lab File Structure</h1>
 cgep-labs - root repository
   evidence - where each lab's evidence is stored
+    lab-x-x
   scripts - scripts used throughout
   terraform - 
     modules - packages the resources needed to deploy buckets over and over again. These are the templates (the gold disk) (terraform init and validate)
-    primitives - call the modules to create the buckets. terraform init, apply, plan are run in the folder
+      compliant-s3
+    primitives - call the modules to create the buckets. terraform init, apply, and plan are run in the folder
+      compliant-s3
+      compliant-prod
+      compliant-negative
   .gitignore - lists files to ignore
-
-with the folders growing in size as we build this out. This is a running document and will be udpated as I go. 
+      
+This structure will grow with each lab. This is a running document and will be updated as I go. 
 
 
