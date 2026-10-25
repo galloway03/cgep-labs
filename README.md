@@ -16,10 +16,12 @@ cgep-labs - root repository
   terraform - 
     modules - packages the resources needed to deploy buckets over and over again. These are the templates (the gold disk) (terraform init and validate)
       compliant-s3
-    primitives - call the modules to create the buckets. terraform init, apply, and plan are run in the folder
+    primitives - call the modules to create the buckets. terraform init, apply, and plan are run in the folder. Each primitive has main, output, variables, README
       compliant-s3
-      compliant-prod
-      compliant-negative
+        main.tf
+        output.tf
+        variables.tf
+        README.md
   .gitignore - lists files to ignore
       
 This structure will grow with each lab. This is a running document and will be updated as I go. 
