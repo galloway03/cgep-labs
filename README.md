@@ -12,11 +12,12 @@ This module is setting the foundation for future ones. We are starting the proce
 cgep-labs - root repository
   evidence - where each lab's evidence is stored
     lab-x-x
+      lab evidence in json format
   scripts - scripts used throughout
   terraform - 
     modules - packages the resources needed to deploy buckets over and over again. These are the templates (the gold disk) (terraform init and validate)
       compliant-s3
-    primitives - call the modules to create the buckets. terraform init, apply, and plan are run in the folder. Each primitive has main, output, variables, README
+    primitives - call the modules to create the buckets. Run terraform init, apply, and plan in the folder. Each primitive has main, output, variables, README
       compliant-s3
         main.tf
         output.tf
