@@ -7,7 +7,7 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region
+  region = "us-east-1"
 
   # CM-6: Configuration settings, required compliance tags applied to every
   # taggable resource by default. Removes the chance of forgetting them.
@@ -19,6 +19,14 @@ provider "aws" {
       ComplianceScope = "cge-p-lab"
     }
   }
+}
+
+module "data_bucket" {
+  project_name = "cgep-lab"
+  source = "../../modules/compliant-s3"
+  environment = "dev"
+  bucket_suffix = "dev-s3galloway-001"
+  retention_days = 30
 }
 
 resource "random_id" "bucket_suffix" {
@@ -111,3 +119,7 @@ resource "aws_s3_bucket_logging" "primary" {
   target_bucket = aws_s3_bucket.log.id
   target_prefix = "access-logs/"
 }
+
+output "attestation" { value = module.data_bucket.compliance_attestation }
+output "bucket_url"  { value = module.data_bucket.bucket_url }
+output "bucket_name" { value = module.data_bucket.bucket_name }

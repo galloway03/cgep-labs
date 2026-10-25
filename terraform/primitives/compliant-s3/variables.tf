@@ -8,6 +8,14 @@ variable "project_name" {
   }
 }
 
+# variable "region" {
+#  type       = string
+#  description = "Bucket location. Multi-regions liks US, EU are valid for buckets"
+#  validation {
+#    condition   = "us-east-1"
+#  }
+#}
+
 variable "environment" {
   type        = string
   description = "Deployment environment. Drives the Environment tag and downstream policy decisions."
