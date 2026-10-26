@@ -37,13 +37,10 @@ This module is setting the foundation for future ones. We are starting the proce
     │   ├── modules
     │   │   └── list of modules and files
     │   └── primitives
-    │       ├── compliant-s3
+    │       ├── resources created (default file types to include)
     │       │   ├── README.md
     │       │   ├── main.tf
     │       │   ├── outputs.tf
-    │       │   ├── terraform.tfstate
-    │       │   ├── terraform.tfstate.backup
-    │       │   ├── tfplan
     │       │   └── variables.tf
     │       └── evidence-vault
     │           ├── main.tf
