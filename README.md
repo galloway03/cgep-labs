@@ -52,4 +52,6 @@ This module is setting the foundation for future ones. We are starting the proce
 ```     
 This structure will grow with each lab. This is a running document and will be updated as I go. 
 
+All tests are run against the plan.json file. If making updates, be sure to run terraform plan again. 
+
 
