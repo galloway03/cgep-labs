@@ -16,7 +16,7 @@ This module is setting the foundation for future ones. We are starting the proce
 + **2.3** - We build one (1) compliant S3 bucket with 6 controls. 
 + **2.4** - We build on this by creating modules that will create multiple compliant buckets - this reminds me of the Gold Disk: create the one compliant disk that is used any time a system is brought online. The lab here was built with GCP; however, I did mine in AWS. *Claude for the win with the conversation*
 + **2.5** - We build the evidence vault that holds the evidence for the auditor. This is different from the evidence folder with the file structure, as that one contains the files from the continuous monitoring process. It reads a workspace, builds a manifest of hashes, uploads a bundle to the vault, and prints a one-line JSON receipt that a pipeline can capture later
-+ **3.3** - In this exercise, we are checking that the infrastructure we built in module 2 is compliant.
++ **3.3** - In this exercise, we are checking that the infrastructure we built in module 2 is compliant. We will use Rego to write policies that check agains the configuration file with a pass or fail.
 
 ## Lab File Structure
 ```
