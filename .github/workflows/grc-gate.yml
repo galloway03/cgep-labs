@@ -1,4 +1,9 @@
 # .github/workflows/grc-gate.yml
+name: Setup Terraform
+  uses: hashicorp/setup-terraform@v3
+  with:
+    terraform_version: "1.15"   # use your local version, as long as it's 1.9 or newer
+
 name: grc-gate
 
 on:
