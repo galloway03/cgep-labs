@@ -28,9 +28,13 @@ This module is setting the foundation for future ones. We are starting the proce
     │   ├── README.md
     │   └── tests/
     │       ├── policyName(platform).rego
+    ├── terraform/primitives/oidc-trust/
+    │   └── main.tf                         ← OIDC provider + IAM role
+    ├── .github/workflows/
+    │   └── grc-gate.yml 
     ├── evidence
     │   ├── lab-x-x
-    │   │   ├── json files for each artifact
+    │   │   ├── JSON files for each artifact
     ├── output
     ├── scripts
     │   └── scripts created 
