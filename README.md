@@ -12,27 +12,28 @@ This module is setting the foundation for future ones. We are starting the proce
 | **CM-6** | Configuration Settings | Enable versioning on the primary bucket so prior object states are recoverable and auditable. Four required tags on every taggable resource: Project, Environment, ManagedBy, ComplianceScope. The clean way to do this is the provider `default_tags` block, so you cannot forget them on a new resource.
 | **AU-3** and **AU-6** | Audit record content and review | he primary bucket logs access to the dedicated log bucket. The log bucket needs ownership controls set so it can accept a log-delivery ACL before logging will work. We will use Rego to create the policies based on the controls in question. This is building the program that even developers can see issues and fix them on their own. 
 
-## Labs
+## Labs - Configuration and evidence files are listed with comments in some places.
 + **2.3** - We build one (1) compliant S3 bucket with 6 controls. 
 + **2.4** - We build on this by creating modules that will create multiple compliant buckets - this reminds me of the Gold Disk: create the one compliant disk that is used any time a system is brought online. The lab here was built with GCP; however, I did mine in AWS. *Claude for the win with the conversation. Make sure to at least set up GCP if you haven't*
 + **2.5** - We build the evidence vault that holds the evidence for the auditor. This differs from the evidence folder with the file structure, which contains files from the continuous monitoring process. It reads a workspace, builds a manifest of hashes, uploads a bundle to the vault, and prints a one-line JSON receipt that a pipeline can capture later
-+ **3.3** - In this exercise, we are checking that the infrastructure we built in module 2 is compliant. We will use Rego to write policies that check the configuration file and return pass or fail. Remember the GCP setup from 2.4? Yeah, you need that for 3.3, at least an instance set up with the roles for this lab. 
++ **3.3** - In this exercise, we are checking that the infrastructure we built in module 2 is compliant. We will use Rego to write policies that check the configuration file and return pass or fail. Remember the GCP setup from 2.4? Yeah, you need that for 3.3, at least an instance set up with the roles for this lab.
++ **3.4** This exercise integrates policy as code using Terraform with conftest. This lab is in AWS but will use the tests that were created in 3.3
 
 ## Lab File Structure
 ```
 └── cgep-labs
     ├── README.md
     ├── policies/
-    │   ├── policyName.rego
+    │   ├── policyName(platform).rego
     │   ├── README.md
     │   └── tests/
-    │       ├── policyName.rego
+    │       ├── policyName(platform).rego
     ├── evidence
     │   ├── lab-x-x
-    │   │   ├── json files
+    │   │   ├── json files for each artifact
     ├── output
     ├── scripts
-    │   └── script
+    │   └── scripts created 
     ├── terraform
     │   ├── modules
     │   │   └── list of modules and files
@@ -50,5 +51,7 @@ This module is setting the foundation for future ones. We are starting the proce
     │   └── main.tf
 ```     
 This structure will grow with each lab. This is a running document and will be updated as I go. 
+
+All tests are run against the plan.json file. If making updates, be sure to run terraform plan again. 
 
 
