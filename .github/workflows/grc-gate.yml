@@ -2,7 +2,7 @@
 name: grc-gate
 
 name: Install Cosign
-  uses: sigstore/cosign-installer@v3
+  uses: sigstore/cosign-installer@v4
   with:
     cosign-release: 'v2.2.4'
 
