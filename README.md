@@ -18,42 +18,46 @@ This module is setting the foundation for future ones. We are starting the proce
 + **2.5** - We build the evidence vault that holds the evidence for the auditor. This differs from the evidence folder with the file structure, which contains files from the continuous monitoring process. It reads a workspace, builds a manifest of hashes, uploads a bundle to the vault, and prints a one-line JSON receipt that a pipeline can capture later
 + **3.3** - In this exercise, we are checking that the infrastructure we built in module 2 is compliant. We will use Rego to write policies that check the configuration file and return pass or fail. Remember the GCP setup from 2.4? Yeah, you need that for 3.3, at least an instance set up with the roles for this lab.
 + **3.4** This exercise integrates policy as code using Terraform with conftest. This lab is in AWS but will use the tests that were created in 3.3
-+ **4.3** We get to build the pipeline using GitHub and AWS. We set up OIDC for authentication to the system. OIDC - the user authenticates once, and the server gives a short-lived token to gain access. AWS and Github have established a trust relationship.
++ **4.3** We get to build the pipeline using GitHub and AWS. We set up OIDC for authentication to the system. OIDC: the user authenticates once, and the server issues a short-lived token for access. AWS and GitHub have established a trust relationship.
 
 ## Lab File Structure
-```
-└── cgep-labs
+```    
+── cgep-labs
     ├── README.md
-    ├── policies/
-    │   ├── policyName(platform).rego
-    │   ├── README.md
-    │   └── tests/
-    │       ├── policyName(platform).rego
-    ├── terraform/primitives/oidc-trust/
-    │   └── main.tf                         ← OIDC provider + IAM role
     ├── .github/workflows/
     │   └── grc-gate.yml 
     ├── evidence
-    │   ├── lab-x-x
-    │   │   ├── JSON files for each artifact
+    │   ├── lab-x-y
+    │   │   ├── evidence1.json
+    │   │   ├── evidence2.txt
     ├── output
+    ├── policies
+    │   ├── README.md
+    │   ├── control1_platform.rego
+    │   ├── control2_platform.rego
+    │   └── tests
+    │       ├── control_test_1.rego
+    │       ├── control_test_2.rego
     ├── scripts
-    │   └── scripts created 
+    │   ├── script_1.sh
+    │   ├── script_2.sh
     ├── terraform
     │   ├── modules
-    │   │   └── list of modules and files
-    │   └── primitives
-    │       ├── resources created (default file types to include)
+    │   │   └── compliant-s3 <- templates to create primitives, will contain similar subfiles
+    │   │       ├── README.md
+    │   │       ├── main.tf
+    │   │       ├── outputs.tf
+    │   │       ├── tfplan
+    │   │       └── variables.tf
+    │   │   └── module_2
+    │   └── primitives <- multiple primitives stored and created with main.tf, outputs.tf, variables.tf, etc
+    │       ├── compliant-s3 
     │       │   ├── README.md
     │       │   ├── main.tf
     │       │   ├── outputs.tf
+    │       │   ├── plan.json
     │       │   └── variables.tf
-    │       └── evidence-vault
-    │           ├── main.tf
-    │           ├── outputs.tf
-    │           └── variables.tf
-    ├── terraform/primitives/policy-fixture/   
-    │   └── main.tf
+    │       ├── primitive_2  
 ```     
 This structure will grow with each lab. This is a running document and will be updated as I go. 
 
