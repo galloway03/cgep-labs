@@ -1,0 +1,397 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_kms_key.bucket will be created
+  + resource "aws_kms_key" "bucket" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 7
+      + description                        = "CMK for primary bucket"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = (known after apply)
+      + policy                             = (known after apply)
+      + rotation_period_in_days            = (known after apply)
+      + tags_all                           = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+        }
+    }
+
+  # aws_s3_bucket.log will be created
+  + resource "aws_s3_bucket" "log" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket.primary will be created
+  + resource "aws_s3_bucket" "primary" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_acl.log will be created
+  + resource "aws_s3_bucket_acl" "log" {
+      + acl    = "log-delivery-write"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_s3_bucket_logging.primary will be created
+  + resource "aws_s3_bucket_logging" "primary" {
+      + bucket        = (known after apply)
+      + id            = (known after apply)
+      + target_bucket = (known after apply)
+      + target_prefix = "access-logs/"
+    }
+
+  # aws_s3_bucket_ownership_controls.log will be created
+  + resource "aws_s3_bucket_ownership_controls" "log" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerPreferred"
+        }
+    }
+
+  # aws_s3_bucket_public_access_block.log will be created
+  + resource "aws_s3_bucket_public_access_block" "log" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_public_access_block.primary will be created
+  + resource "aws_s3_bucket_public_access_block" "primary" {
+      + block_public_acls       = false
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.log will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "log" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.primary will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "primary" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + bucket_key_enabled = true
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.primary will be created
+  + resource "aws_s3_bucket_versioning" "primary" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # random_id.bucket_suffix will be created
+  + resource "random_id" "bucket_suffix" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 4
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+  # module.data_bucket.aws_kms_key.key will be created
+  + resource "aws_kms_key" "key" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 7
+      + description                        = "CMEK for cgep-lab-dev-dev-s3galloway-001"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = (known after apply)
+      + policy                             = (known after apply)
+      + rotation_period_in_days            = 90
+      + tags                               = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+          + "retention_days"  = "30"
+        }
+      + tags_all                           = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+          + "retention_days"  = "30"
+        }
+    }
+
+  # module.data_bucket.aws_s3_bucket.bucket will be created
+  + resource "aws_s3_bucket" "bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "cgep-lab-dev-dev-s3galloway-001"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = true
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+          + "retention_days"  = "30"
+        }
+      + tags_all                    = {
+          + "ComplianceScope" = "cge-p-lab"
+          + "Environment"     = "dev"
+          + "ManagedBy"       = "terraform"
+          + "Project"         = "cgep-lab"
+          + "retention_days"  = "30"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # module.data_bucket.aws_s3_bucket_object_lock_configuration.bucket will be created
+  + resource "aws_s3_bucket_object_lock_configuration" "bucket" {
+      + bucket              = (known after apply)
+      + id                  = (known after apply)
+      + object_lock_enabled = "Enabled"
+
+      + rule {
+          + default_retention {
+              + days = 30
+              + mode = "GOVERNANCE"
+            }
+        }
+    }
+
+  # module.data_bucket.aws_s3_bucket_ownership_controls.bucket will be created
+  + resource "aws_s3_bucket_ownership_controls" "bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # module.data_bucket.aws_s3_bucket_public_access_block.bucket will be created
+  + resource "aws_s3_bucket_public_access_block" "bucket" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # module.data_bucket.aws_s3_bucket_server_side_encryption_configuration.bucket will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + bucket_key_enabled = true
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # module.data_bucket.aws_s3_bucket_versioning.bucket will be created
+  + resource "aws_s3_bucket_versioning" "bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # module.data_bucket.random_id.bucket_suffix will be created
+  + resource "random_id" "bucket_suffix" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 4
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+Plan: 20 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + attestation            = {
+      + encryption_algorithm     = "aws:kms"
+      + kms_rotation_enabled     = true
+      + kms_rotation_period_days = 90
+      + public_access_prevention = true
+      + required_tags_present    = true
+      + retention_period_days    = 30
+      + uniform_access_enforced  = true
+      + versioning_enabled       = true
+    }
+  + bucket_name            = (known after apply)
+  + bucket_url             = (known after apply)
+  + compliance_attestation = {
+      + encryption_algorithm  = "aws:kms"
+      + logging_target_bucket = (known after apply)
+      + public_access_blocked = false
+      + required_tags_present = true
+      + versioning_enabled    = true
+    }
+  + encryption_algorithm   = "aws:kms"
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"
