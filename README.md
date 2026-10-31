@@ -32,6 +32,12 @@ This module is setting the foundation for future ones. We are starting the proce
     │   ├── lab-x-y
     │   │   ├── evidence1.json
     │   │   ├── evidence2.txt
+    ├── oscal/                                 
+    │   ├── components/
+    │   │   └── file.json              
+    │   ├── profiles/
+    │   │   └── file.json            
+    │   └── README.md
     ├── output
     ├── policies
     │   ├── README.md
@@ -44,6 +50,14 @@ This module is setting the foundation for future ones. We are starting the proce
     │   ├── script_1.sh
     │   ├── script_2.sh
     ├── terraform
+    │   └── baselines/
+    │       └── platform1/
+    │           ├── main.tf
+    │           ├── cloudtrail.tf
+    │           ├── security_hub.tf
+    │           ├── variables.tf
+    │           ├── outputs.tf
+    │           └── README.md
     │   ├── modules
     │   │   └── compliant-s3 <- templates to create primitives, will contain similar subfiles
     │   │       ├── README.md
