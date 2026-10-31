@@ -20,7 +20,7 @@ This module is setting the foundation for future ones. We are starting the proce
 + **3.4** This exercise integrates policy as code using Terraform with conftest. This lab is in AWS but will use the tests that were created in 3.3
 + **4.3** We get to build the pipeline using GitHub and AWS. We set up OIDC for authentication. OIDC: the user authenticates once, and the server issues a short-lived access token. AWS and GitHub have established a trust relationship.
 + **4.4** This lab focused on evidence management and chain of custody. Here, we introduce Cosign to sign and encrypt the files and ensure the vault isn't tampered with.
-+ **5.2** We now move into vulnerability scanning and baselining AWS security services. We introduce CloudTrail (multi-region, mgmt events) (AU-2 / AU-12 / AU-10) (log-file validation), AWS Config recorder (optional; an org SCP may block it; CM-2 / CM-6 / CM-8), and Security Hub (NIST 800-53 + FSBP; RA-5 / SI-4)
++ **5.2** We now move into vulnerability scanning and baselining AWS security services. We introduce CloudTrail (multi-region, mgmt events) (AU-2 / AU-12 / AU-9 / AU-10) (log-file validation), AWS Config recorder (optional; an org SCP may block it; CM-2 / CM-6 / CM-8), and Security Hub (NIST 800-53 + FSBP; RA-5 / SI-4)
 
 ## Lab File Structure
 ```    
