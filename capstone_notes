@@ -17,3 +17,7 @@ Control	What it requires
 164.312(b)	      Audit Controls — record and examine activity in systems with PHI.
 164.312(d)	      Person or Entity Authentication.
 164.312(e)(1)	    Transmission Security — encryption + integrity in transit.
+
+The controls will come from NIST SP 800-66 Rev. 2 (https://csrc.nist.gov/pubs/sp/800/66/r2/final)
+
+
