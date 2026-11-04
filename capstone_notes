@@ -40,6 +40,15 @@ Implement OIDC trust here
 **164.312(e)(1)**	    Transmission Security — encryption + integrity in transit.
 Implement technical security measures to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network.
 
+Layers to evidence
+HIPAA outcome → 800-66 800-53 control → AWS setting → Rego policy → evidence 
+
+HIPAA requirement	§164.308(a)(1)(ii)(A) — Risk Analysis
+NIST SP 800-66	Guidance on conducting risk analysis and identifying risks to electronic protected health information (ePHI)
+NIST SP 800-53	Applicable risk assessment controls, such as RA-3
+Your GRC engineering test	Verify a documented risk assessment exists, has an assigned owner, and meets your organization's review criteria
+
+
 The controls will come from NIST SP 800-66 Rev. 2 (https://csrc.nist.gov/pubs/sp/800/66/r2/final)
 
 Repo structure
