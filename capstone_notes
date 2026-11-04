@@ -1,0 +1,19 @@
+# This is where I will hold my notes and thoughts for the capstone. 
+Who: Acme Health, a 50-person telehealth company
+What: Controls related to HIPAA
+Where: Intake form fields - Name, Address, Phone number, birthday, ssn, PHI (medical records, patient ID, attachments (this may be photos of images or other details)
+When:
+Why: HIPAA compliance mapping first, show crossover with NIST and SOC 2, create a plan for CMMC, including where there is overlap
+How: We will create a continuous monitoring pipeline that checks that every resource created in AWS passes the compliance check against controls in a framework such as HIPAA or NIST. This turns checkbox activity into a scalable, repeatable system across all cloud implementations. 
+
+Design of project
+
+These are the HIPPA controls
+Control	What it requires
+164.308(a)(1)	    Security Management Process — risk analysis, sanction policy, info system activity review.
+164.308(a)(7)	    Contingency Plan — data backup, disaster recovery. Versioning on PHI buckets.
+164.312(a)(1)	    Access Control — unique user IDs, automatic logoff, encryption at rest.
+164.312(a)(2)(iv)	Encryption and decryption — addressable but effectively required.
+164.312(b)	      Audit Controls — record and examine activity in systems with PHI.
+164.312(d)	      Person or Entity Authentication.
+164.312(e)(1)	    Transmission Security — encryption + integrity in transit.
