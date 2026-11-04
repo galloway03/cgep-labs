@@ -20,4 +20,35 @@ Control	What it requires
 
 The controls will come from NIST SP 800-66 Rev. 2 (https://csrc.nist.gov/pubs/sp/800/66/r2/final)
 
+Repo structure
+cgep-app-starter/
+  evidence
+    files.json
+  oscal
+    components 
+    profiles
+  policies
+    5 policy files
+  scripts
+    scripts to use
+  primitatives
+    oidc-trust
+    evidence vault
+  terraform
+    baseline
+      aws baseline security check
+    module
+      resource template
+    lambda
+      main.tf
+      output.tf
+      variables.tf
+  test
+    intake.sh
+  .gitignore
+  FRAMEWORKS.md
+  GAPS.md
+  Makefile
+  README.md
+  WORKLOAD.md
 
