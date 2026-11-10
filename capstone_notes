@@ -1,0 +1,85 @@
+# This is where I will hold my notes and thoughts for the capstone. 
+Who: Acme Health, a 50-person telehealth company
+What: Controls related to HIPAA
+Where: Intake form fields - Name, Address, Phone number, birthday, ssn, PHI (medical records, patient ID, attachments (this may be photos of images or other details)
+When:
+Why: HIPAA compliance mapping first, show crossover with NIST and SOC 2, create a plan for CMMC, including where there is overlap
+How: We will create a continuous monitoring pipeline that checks that every resource created in AWS passes the compliance check against controls in a framework such as HIPAA or NIST. This turns checkbox activity into a scalable, repeatable system across all cloud implementations. 
+
+Design of project
+
+These are the HIPAA controls
+Control	What it requires
+**164.308(a)(1)**	    Security Management Process — risk analysis, sanction policy, info system activity review. 
+(Identify ePHI in systems; has a risk assessment been conducted; have vulns been remediated, exception submitted?)
+Implement policies and procedures to prevent, detect, contain, and correct security violations
+https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+
+**164.308(a)(7)**	    Contingency Plan — data backup, disaster recovery. Versioning on PHI buckets.
+Establish (and implement as needed) policies and procedures for responding to an emergency or other occurrence (for example, fire, vandalism, system failure, and natural disaster) that damages systems that contain electronic protected health information.
+Implement versioning
+https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+
+**164.312(a)(1)**	    Access Control — unique user IDs, automatic logoff, encryption at rest.
+Implement technical policies and procedures for electronic information systems that maintain electronic protected health information to allow access only to those persons or software programs that have been granted access rights as specified in § 164.308(a)(4).
+Implement encryption at rest and in motion
+https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312#p-164.312(a)(1)
+
+**164.312(a)(2)(iv)**	Encryption and decryption — addressable but effectively required.
+Implement a mechanism to encrypt and decrypt electronic protected health information.
+Implement encryption and a vault
+
+**164.312(b)**	      Audit Controls — record and examine activity in systems with PHI.
+Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use electronic protected health information.
+Implement controls around the logs of the system and chain of custody of those files.
+
+**164.312(d)**	      Person or Entity Authentication.
+Implement procedures to verify that a person or entity seeking access to electronic protected health information is the one claimed.
+Implement OIDC trust here
+
+**164.312(e)(1)**	    Transmission Security — encryption + integrity in transit.
+Implement technical security measures to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network.
+
+Layers to evidence
+HIPAA outcome → 800-66 800-53 control → AWS setting → Rego policy → evidence 
+
+HIPAA requirement	§164.308(a)(1)(ii)(A) — Risk Analysis
+NIST SP 800-66	Guidance on conducting risk analysis and identifying risks to electronic protected health information (ePHI)
+NIST SP 800-53	Applicable risk assessment controls, such as RA-3
+Your GRC engineering test	Verify a documented risk assessment exists, has an assigned owner, and meets your organization's review criteria
+
+
+The controls will come from NIST SP 800-66 Rev. 2 (https://csrc.nist.gov/pubs/sp/800/66/r2/final)
+
+Repo structure
+cgep-app-starter/
+  evidence
+    files.json
+  oscal
+    components 
+    profiles
+  policies
+    5 policy files
+  scripts
+    scripts to use
+  primitatives
+    oidc-trust
+    evidence vault
+  terraform
+    baseline
+      aws baseline security check
+    module
+      resource template
+    lambda
+      main.tf
+      output.tf
+      variables.tf
+  test
+    intake.sh
+  .gitignore
+  FRAMEWORKS.md
+  GAPS.md
+  Makefile
+  README.md
+  WORKLOAD.md
+
