@@ -7,6 +7,14 @@
 #   framework: nist-800-53
 #   severity: high
 #   remediation: "Enable logging on Cloudtrail resources"
+# Test fixture: policies/tests/au12_cloudtrail_test.json
+# Run from the repository root:
+# conftest test policies/tests/au12_cloudtrail_test.json \
+#   --policy policies/au12_cloudtrail_aws.rego \
+#   --namespace compliance.au12_aws
+#
+# The fixture intentionally disables multi-region logging and log-file validation to demonstrate policy violations.
+
 package compliance.au12_aws
 
 import rego.v1

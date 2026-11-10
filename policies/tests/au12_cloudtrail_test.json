@@ -1,0 +1,20 @@
+{
+    "planned_values": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "aws_cloudtrail.mgmt",
+                    "type": "aws_cloudtrail",
+                    "values": {
+                        "enable_logging": true,
+                        "is_multi_region_trail": false,
+                        "include_global_service_events": true,
+                        "enable_log_file_validation": false,
+                        "s3_bucket_name": "cgep-lab-mgmt"
+                    }
+
+                }
+            ]
+        }
+    }
+}

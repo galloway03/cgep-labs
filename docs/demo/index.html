@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CGEP | CloudTrail Assessment</title>
+  <style>
+    /* A&M Strategies brand card: #4c0a67, #ffbd4a, #808080, #e8e8e8. */
+    :root {
+      color-scheme: light;
+      --am-purple:#4c0a67;
+      --am-orange:#ffbd4a;
+      --am-gray:#808080;
+      --am-light:#e8e8e8;
+      --am-white:#ffffff;
+      --am-text:#24152c;
+      font-family: "Raleway", "Glacial Indifference", system-ui, sans-serif;
+      color:var(--am-text);background:var(--am-light);
+    }
+    *{box-sizing:border-box} body{margin:0}
+    header{padding:22px max(20px,calc((100vw - 1050px)/2));border-bottom:5px solid var(--am-orange);background:var(--am-purple)}
+    main{max-width:1050px;margin:auto;padding:30px 20px 60px}
+    h1{font-size:clamp(27px,4vw,42px);margin:12px 0;color:var(--am-purple)}
+    h2{font-size:18px;margin:0 0 16px;color:var(--am-purple)}
+    p{color:#555;line-height:1.55}
+    .label{font-size:12px;letter-spacing:.1em;color:var(--am-purple);font-weight:800}
+    header .label{color:var(--am-white)}
+    .layout{display:grid;grid-template-columns:minmax(280px,360px) 1fr;gap:18px;margin-top:28px}
+    .panel{background:var(--am-white);border:1px solid #ccc;border-top:4px solid var(--am-purple);border-radius:15px;padding:21px;box-shadow:0 8px 24px rgba(76,10,103,.08)}
+    label{display:block;font-size:13px;font-weight:600;margin:15px 0 6px}
+    select,input{width:100%;background:var(--am-white);border:1px solid var(--am-gray);border-radius:8px;padding:10px;color:var(--am-text);font:inherit}
+    button{font:inherit;font-weight:700;cursor:pointer;border:1px solid var(--am-purple);border-radius:8px;background:var(--am-purple);color:var(--am-white);padding:11px 12px}
+    button:hover{filter:brightness(1.13)}
+    button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--am-orange);outline-offset:2px}
+    button.primary{background:var(--am-orange);color:var(--am-purple);border-color:var(--am-orange)}
+    .buttons{display:grid;gap:8px;margin-top:20px}
+    .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
+    .metric{background:#f7f7f7;border:1px solid var(--am-light);border-radius:10px;padding:12px}
+    .metric strong{font-size:25px;display:block;color:var(--am-purple)}
+    .metric span{font-size:12px;color:#555}
+    .checks{display:grid;gap:10px}
+    .check{background:#fafafa;border:1px solid var(--am-light);border-left:4px solid var(--am-purple);border-radius:9px;padding:12px}
+    .checkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .check h3{margin:0;font-size:14px}.check p{font-size:13px;margin:7px 0 0}
+    .badge{font-size:11px;padding:4px 8px;border-radius:20px;white-space:nowrap;font-weight:800}
+    /* Keep accessible semantic colors for outcomes. */
+    .PASS{color:#12603b;background:#dcf3e6}.FAIL{color:#922b2b;background:#ffe3e0}.NA{color:#454b52;background:#e9ecef}
+    .note{padding:12px;border-left:4px solid var(--am-orange);background:#fff6e5;border-radius:4px;font-size:13px;color:var(--am-text)}
+    .muted{font-size:13px;color:#555}a{color:var(--am-purple)}
+    details{margin-top:18px}summary{cursor:pointer}
+    pre{background:#f7f7f7;color:var(--am-text);border:1px solid var(--am-light);padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:350px;white-space:pre-wrap;overflow-wrap:anywhere}
+    #export{margin-top:18px}button:disabled{opacity:.45;cursor:not-allowed}
+    @media(max-width:760px){.layout{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header><span class="label">CGEP / GRC ENGINEERING LAB</span></header>
+<main>
+  <span class="label">NIST SP 800-53 · AU-12 · INTERACTIVE DEMO</span>
+  <h1>CloudTrail Compliance Assessment</h1>
+  <p>Explore six audit-logging checks using synthetic Terraform plan data. Change a configuration, run the assessment, view findings, simulate remediation, and export evidence.</p>
+  <div class="note">Educational demonstration: JavaScript mirrors the checks in the <a href="https://github.com/galloway03/cgep-labs/blob/main/policies/au12_cloudtrail_aws.rego" target="_blank" rel="noopener noreferrer">CGEP Rego policy</a>. This webpage does <strong>not</strong> run OPA or Conftest, access AWS, or certify compliance.</div>
+  <div class="layout">
+    <section class="panel"><h2>1. Select a scenario</h2>
+      <label for="scenario">Scenario</label><select id="scenario"><option value="misconfigured">Misconfigured CloudTrail</option><option value="missing">Missing CloudTrail</option><option value="compliant">Compliant CloudTrail</option></select>
+      <label for="exists">CloudTrail resource exists</label><select id="exists"><option value="yes">Yes</option><option value="no">No</option></select>
+      <label for="logging">enable_logging</label><select id="logging"><option value="true">true</option><option value="false">false</option></select>
+      <label for="multi">is_multi_region_trail</label><select id="multi"><option value="true">true</option><option value="false">false</option></select>
+      <label for="validation">enable_log_file_validation</label><select id="validation"><option value="true">true</option><option value="false">false</option></select>
+      <label for="global">include_global_service_events</label><select id="global"><option value="true">true</option><option value="false">false</option></select>
+      <label for="bucket">s3_bucket_name</label><input id="bucket" maxlength="200" value="cgep-lab-mgmt">
+      <div class="buttons"><button class="primary" id="run">Run assessment</button><button id="fix">Apply simulated remediation & rerun</button><button id="reset">Reset scenario</button></div>
+      <p class="muted">Scope: one CloudTrail resource in Terraform's root module. This demo does not inspect child modules, provider defaults, or actual log delivery.</p>
+    </section>
+    <section class="panel"><h2>2. Assessment results</h2><p id="message" aria-live="polite">Select Run assessment to evaluate your configuration.</p>
+      <div class="summary"><div class="metric"><strong id="pass">—</strong><span>Passed</span></div><div class="metric"><strong id="fail">—</strong><span>Failed</span></div><div class="metric"><strong id="na">—</strong><span>Not evaluated</span></div></div>
+      <div id="checks" class="checks"></div><button id="export" disabled>Export JSON evidence</button>
+      <details><summary>View synthetic Terraform plan JSON</summary><pre id="plan"></pre></details>
+    </section>
+  </div>
+  <p class="muted">A configured S3 destination does not prove that a bucket exists or accepts CloudTrail logs. Passing these six checks does not establish full NIST AU-12 compliance. <a href="https://github.com/galloway03/cgep-labs/blob/main/policies/au12_cloudtrail_aws.rego" target="_blank" rel="noopener noreferrer">View Rego policy</a> · <a href="https://github.com/galloway03/cgep-labs/blob/main/policies/tests/au12_cloudtrail_test.json" target="_blank" rel="noopener noreferrer">View test JSON</a>.</p>
+</main>
+<script>
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const fieldIds = ['exists', 'logging', 'multi', 'validation', 'global', 'bucket'];
+  const scenarios = {
+    misconfigured: {exists:'yes', logging:'true', multi:'false', validation:'false', global:'true', bucket:'cgep-lab-mgmt'},
+    missing: {exists:'no', logging:'true', multi:'true', validation:'true', global:'true', bucket:'cgep-lab-mgmt'},
+    compliant: {exists:'yes', logging:'true', multi:'true', validation:'true', global:'true', bucket:'cgep-lab-mgmt'}
+  };
+  const tests = [
+    {id:'presence', title:'CloudTrail resource exists', key:null, fix:'Add an aws_cloudtrail resource to the Terraform plan.'},
+    {id:'multi', title:'Multi-region logging', key:'is_multi_region_trail', fix:'Set is_multi_region_trail to true.'},
+    {id:'logging', title:'CloudTrail logging enabled', key:'enable_logging', fix:'Set enable_logging to true.'},
+    {id:'validation', title:'Log file validation', key:'enable_log_file_validation', fix:'Set enable_log_file_validation to true.'},
+    {id:'global', title:'Global service events', key:'include_global_service_events', fix:'Set include_global_service_events to true.'},
+    {id:'bucket', title:'S3 destination configured', key:'s3_bucket_name', fix:'Provide a non-empty s3_bucket_name.'}
+  ];
+  let evidence = null;
+  function readForm() {
+    return {exists:$('exists').value==='yes', enable_logging:$('logging').value==='true',
+      is_multi_region_trail:$('multi').value==='true', enable_log_file_validation:$('validation').value==='true',
+      include_global_service_events:$('global').value==='true', s3_bucket_name:$('bucket').value};
+  }
+  function makePlan(v) {
+    return {planned_values:{root_module:{resources:v.exists ? [{address:'aws_cloudtrail.mgmt',type:'aws_cloudtrail',values:{enable_logging:v.enable_logging,is_multi_region_trail:v.is_multi_region_trail,include_global_service_events:v.include_global_service_events,enable_log_file_validation:v.enable_log_file_validation,s3_bucket_name:v.s3_bucket_name}}] : []}}};
+  }
+  function updatePlan() {$('plan').textContent=JSON.stringify(makePlan(readForm()),null,2);}
+  function clearResults() {evidence=null; $('checks').replaceChildren(); ['pass','fail','na'].forEach(id=>$(id).textContent='—'); $('export').disabled=true; $('message').textContent='Configuration ready. Run the assessment to see results.';}
+  function loadScenario(name) {const s=scenarios[name]; fieldIds.forEach(id=>$(id).value=s[id]);clearResults();updatePlan();}
+  function evaluate() {
+    const v=readForm();
+    const checks=tests.map(t=>{
+      let status;
+      if (!v.exists) status=t.id==='presence'?'FAIL':'NOT_EVALUATED';
+      else if (t.id==='presence') status='PASS';
+      else if (t.id==='bucket') status=v.s3_bucket_name===''?'FAIL':'PASS';
+      else status=v[t.key]===true?'PASS':'FAIL';
+      return {id:t.id, check:t.title,status,remediation:status==='FAIL'?t.fix:null};
+    });
+    return {schema_version:'1.0',assessment:'CGEP CloudTrail AU-12 demonstration',engine:'browser-based simulation (OPA/Conftest not executed)',synthetic:true,
+      generated_at:new Date().toISOString(),control:'NIST SP 800-53 AU-12',scenario:$('scenario').value,
+      terraform_plan:makePlan(v),summary:{passed:checks.filter(x=>x.status==='PASS').length,failed:checks.filter(x=>x.status==='FAIL').length,not_evaluated:checks.filter(x=>x.status==='NOT_EVALUATED').length},checks};
+  }
+  function render() {
+    evidence=evaluate(); $('pass').textContent=evidence.summary.passed; $('fail').textContent=evidence.summary.failed; $('na').textContent=evidence.summary.not_evaluated;
+    $('message').textContent=evidence.summary.failed ? 'Assessment complete. Review the findings below.' : 'Assessment complete. No violations detected by these demonstration checks.';
+    const target=$('checks');target.replaceChildren();
+    evidence.checks.forEach(c=>{
+      const card=document.createElement('article'); card.className='check';
+      const header=document.createElement('div'); header.className='checkhead';
+      const title=document.createElement('h3');title.textContent=c.check;
+      const badge=document.createElement('span');badge.className='badge '+(c.status==='NOT_EVALUATED'?'NA':c.status);badge.textContent=c.status.replace('_',' ');
+      header.append(title,badge);card.append(header);
+      const detail=document.createElement('p');detail.textContent=c.status==='FAIL'?c.remediation:c.status==='NOT_EVALUATED'?'Cannot evaluate this setting because CloudTrail is absent.':'No violation detected in the synthetic input.';
+      card.append(detail);target.append(card);
+    }); $('export').disabled=false;updatePlan();
+  }
+  $('scenario').addEventListener('change',e=>loadScenario(e.target.value));
+  fieldIds.forEach(id=>$(id).addEventListener(id==='bucket'?'input':'change',()=>{clearResults();updatePlan();}));
+  $('run').addEventListener('click',render);
+  $('reset').addEventListener('click',()=>loadScenario($('scenario').value));
+  $('fix').addEventListener('click',()=>{$('scenario').value='compliant';loadScenario('compliant');render();$('message').textContent='Simulated remediation applied and checks rerun. No real infrastructure was modified.';});
+  $('export').addEventListener('click',()=>{
+    if (!evidence) return;
+    const url=URL.createObjectURL(new Blob([JSON.stringify(evidence,null,2)],{type:'application/json'}));
+    const a=document.createElement('a');a.href=url;a.download='cgep-au12-demo-evidence.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  loadScenario('misconfigured');
+})();
+</script>
+</body>
+</html>
