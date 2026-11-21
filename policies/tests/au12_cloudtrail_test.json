@@ -7,9 +7,9 @@
                     "type": "aws_cloudtrail",
                     "values": {
                         "enable_logging": true,
-                        "is_multi_region_trail": false,
+                        "is_multi_region_trail": true,
                         "include_global_service_events": true,
-                        "enable_log_file_validation": false,
+                        "enable_log_file_validation": true,
                         "s3_bucket_name": "cgep-lab-mgmt"
                     }
 
